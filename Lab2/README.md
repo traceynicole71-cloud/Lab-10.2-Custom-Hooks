@@ -70,7 +70,7 @@ Continued development for me is to pay attention to importing and exporting that
 
 ### AI Collaboration
 
-I the Github co-pilot to make sure my Typescript files were configured correctly. I also use it to help find error in my code when the Debounce Search Demo card would not populate on my live page. I used Google Gemini to provide the code to create the Dracula Pink and Green Theme for the cards.  
+I the Github co-pilot to make sure my Typescript files were configured correctly, and to help me insert and animate the rocket icon in the Debounce Search Demo. I also used it to help find error in my code when the Debounce Search Demo card would not populate on my live page. I used Google Gemini to provide the code to create the Dracula Pink and Green Theme for the cards.  
 
 ## Acknowledgments
 
