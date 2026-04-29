@@ -6,7 +6,7 @@ import ( useState, useMemo } from 'react';
         ItemsPerPage?: number;
         initialPage?: number;
     }
-//define shape of hook returns
+//define shape of hook return values
 interface PaginationResults {
     currentPage: number;
     totalPages: number;
@@ -26,6 +26,39 @@ export const usePagination = ({
     initialPage = 1,
 }: PaginationOptions): paginationResult => {
     const [currentPage, setCurrentPage] = useState<number>(initialPage);
+//calculate total pages
+    const totalPages = useMemo(() =>
+        Math.max(1, Math.ceil(totalItems / itemsPerPage)),
+    [totalItems, itemsPerPage]
+    );
+//keep requested pages within range
+    const clampPage = (page: number): number =>
+        Math.max(1, Math.min(page, totalPages));
+//calculate start and end indices based on current page and items per page
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems - 1);
+//count for last page
+const itemOnCurrentPage = totalItems === 0 ? 0 : Math.max(0, (endIndex - startIndex + 1));
 
-}
-})
+const setPage = (pageNumber: number) => setCurrentPage(clampPage(pageNumber));
+
+const nextPAge = () => {
+    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+};
+    Const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(prev => prev - 1);
+    };
+
+    return {
+      currentPage,
+    totalPages,
+    startIndex,
+    endIndex,
+    itemsOnCurrentPage,
+    setPage,
+    nextPage,
+    prevPage,
+    canNextPage: currentPage < totalPages,
+    canPrevPage: currentPage > 1,
+    };
+};
