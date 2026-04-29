@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { useDebounce } from '../hooks/useDebounce';
-import { Rocket } from 'lucide-react';
 
 const DebounceSearchDemo: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');

@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react';
     //define shape of inputs
     interface PaginationOptions {
         totalItems: number;
-        ItemsPerPage?: number;
+        itemsPerPage?: number;
         initialPage?: number;
     }
 //define shape of hook return values
