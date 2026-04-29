@@ -2,21 +2,29 @@ import React from 'react';
 import { usePagination } from '../hooks/usePagination';
 
 const PaginationDemo: React.FC = () => {
-    const data: string[] = Array.from({ length: 123 }, (_, i) => `Item ${i + 1}`);
+    const data: string[] = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`);
 
     //initialize Pagination hook wtih data length
     const {
-        currentPage, totalPages, startIndex, endIndex, nextPage, prevPage, canNextPage, canPrevPage, setPage
-    } = usePagination({ totalItems: data.length, itemsPerPage: 10 });
+        currentPage,
+        totalPages,
+        startIndex,
+        endIndex,
+        nextPage,
+        prevPage,
+        canNextPage,
+        canPrevPage
+     } = usePagination({ totalItems: data.length, itemsPerPage: 10 });
 
+//display slice of items for current page
     const currentItems = data.slice(startIndex, endIndex + 1);
-//matching styles
+
     return (
         <div className="w-full max-w-md p-6 bg-stone-800 border-2 border-pink-800 rounded-2xl shadow-2xl text-stone-100">
             <h3 className="text-center text-xl font-bold text-green-400 mb-4 uppercase tracking-wider">
                 PAGINATION DEMO
             </h3>
-
+{/*display current page and total pages*/}
 <div className="flex justify-between text-xs text-stone-400 mb-4 font-mono">
     <span>Items: {data.length}</span>
     <span>Page: {currentPage} / {totalPages}</span>
@@ -53,18 +61,19 @@ const PaginationDemo: React.FC = () => {
     </button>
 </div>
 
+{/*specific page number button*/}
 <div className="flex flex-wrap gap-2 justify-center border-t border-stone-700 pt-4">
     {Array.from({ length: totalPages }, (_, i) => (
       <button
       key={i}
-      onClick={() => setPage(i + 1)}
+      onClick={() => {}}
       className={`w-8 roumded-md text-xs font-bold transition-all ${
         currentPage === i + 1
         ? 'bg-green-400 text-stone-900 scale-110 shadow-[0_0_10px_rgba(74, 222, 128, 0.5)]'
         : 'bg-stone-700 text-stone-300 hover:bg-stone-600'
       }`}  
       >
-        {1 + 1}
+        {i + 1}
       </button>
     ))}
 </div>
