@@ -24,7 +24,7 @@ export const usePagination = ({
     totalItems,
     itemsPerPage = 10,
     initialPage = 1,
-}: PaginationOptions): paginationResult => {
+}: PaginationOptions): PaginationResults => {
     const [currentPage, setCurrentPage] = useState<number>(initialPage);
 //calculate total pages
     const totalPages = useMemo(() =>
@@ -38,14 +38,14 @@ export const usePagination = ({
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems - 1);
 //count for last page
-const itemOnCurrentPage = totalItems === 0 ? 0 : Math.max(0, (endIndex - startIndex + 1));
-
+const itemsOnCurrentPage = totalItems === 0 ? 0 : Math.max(0, (endIndex - startIndex + 1));
+//navigation API
 const setPage = (pageNumber: number) => setCurrentPage(clampPage(pageNumber));
 
-const nextPAge = () => {
+const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
 };
-    Const prevPage = () => {
+    const prevPage = () => {
         if (currentPage > 1) setCurrentPage(prev => prev - 1);
     };
 
