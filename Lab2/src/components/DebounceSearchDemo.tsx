@@ -1,31 +1,56 @@
-import REact, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { useDebounce } from '../hooks/useDebounce';
+import { Rocket } from 'lucide-react';
 
 const DebounceSearchDemo: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const debounceValue = useDebounce<string>(searchTerm, 500);
+    const debouncedValue = useDebounce<string>(searchTerm, 500);
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
 
-    return (
-        <div style={{ background: '#2d2d2d', color: '#f0f0f0', padding: '20px', borderRadius: '15px', border: '2px solid #50fa7b', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}>
-            <h3 style={{ textAlign: 'center', color: '#ff79c6' }}>DEBOUNCE SEARCH DEMO</h3>
-            <p style={{ fontSize: '0.9rem', color: '#aaa' }}>Debounce Delay (ms): 500</p>
+        return (
+            <div className="w-full max-w-md p-6 bg-stone-800 border-2 border-green-400 rounded-2xl text-stone-100">
+                <h3 className="text-center text-xl font-bold text-pink-500 mb-4 uppercase">
+                    DEBOUNCE SEARCH DEMO
+                </h3>
 
-            <input 
-            type="text"
-            placeholder="Type to search..."
-            value={searchTerm}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-            style={{
-                width: '100%',
-                padding: '12px',
-                background: '#1a1a1a',
-                color: '#50fa7b',
-                border: '2px solid #444',
-                borderRadius: '8px',
-                outline: 'none'
-            }}
-            />
-            
-        </div>
-    )
-}
+                <p className="text-xs text-stone-400 mb-2 font-mono">
+                    Delay: 500ms
+                </p>
+
+                <input
+                    type="text"
+                    placeholder="Type to see the magic..."
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    className="w-full p-3 bg-stone-900 border-2 border-stone-700 rounded-xl text-green-400 focus:outline-none focus:border-green-400 transition-all"
+                />
+                <div className="mt-6 space-y-3 text-sm">
+                    <p>
+                        <span className="font-bold text-stone-400">Typing:</span>{' '}
+                        <span className="text-green-400">{searchTerm || '...'}</span>
+                    </p>
+                    <p>
+                        <span className="font-bold text-stone-400">Final Value:</span>{' '}
+                        <span className="text-pink-500 font-bold">{debouncedValue || '...'}</span>
+                    </p>
+                </div>
+                {/*add a rocket emoji*/}
+                <div className="mt-8 pt-4 border-t border-stone-700">
+                    <div className="text-center text-sm italic text-stone-400">
+                        {debouncedValue ? (
+                            <p>
+                                <span className="inline-block mr-2 animate-bounce">🚀</span>
+                                Searching for <span className="text-pink-500">"{debouncedValue}"</span>
+                            </p>
+                        ) : (
+                            <p> Start Typing to Trigger the Rocket...</p>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );}
+    };
+
+    export default DebounceSearchDemo;
